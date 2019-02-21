@@ -1,37 +1,37 @@
 # Installing Faceswap
 - [Installing Faceswap](#installing-faceswap)
 - [Prerequisites](#prerequisites)
-    - [Hardware Requirements](#hardware-requirements)
-    - [Supported operating systems](#supported-operating-systems)
+  - [Hardware Requirements](#hardware-requirements)
+  - [Supported operating systems](#supported-operating-systems)
 - [Important before you proceed](#important-before-you-proceed)
 - [General Install Guide](#general-install-guide)
-    - [Installing dependencies](#installing-dependencies)
-    - [Getting the faceswap code](#getting-the-faceswap-code)
-    - [Setup](#setup)
-        - [About some of the options](#about-some-of-the-options)
-    - [Run the project](#run-the-project)
-    - [Notes](#notes)
+  - [Installing dependencies](#installing-dependencies)
+  - [Getting the faceswap code](#getting-the-faceswap-code)
+  - [Setup](#setup)
+    - [About some of the options](#about-some-of-the-options)
+  - [Run the project](#run-the-project)
+  - [Notes](#notes)
 - [Windows Install Guide](#windows-install-guide)
-    - [Prerequisites](#prerequisites-1)
-        - [Microsoft Visual Studio 2015](#microsoft-visual-studio-2015)
-        - [Cuda](#cuda)
-        - [cuDNN](#cudnn)
-        - [CMake](#cmake)
-        - [Anaconda](#anaconda)
-        - [Git](#git)
-    - [Setup](#setup-1)
-        - [Anaconda](#anaconda-1)
-            - [Set up a virtual environment](#set-up-a-virtual-environment)
-            - [Entering your virtual environment](#entering-your-virtual-environment)
-        - [Faceswap](#faceswap)
-            - [Easy install](#easy-install)
-            - [Manual install](#manual-install)
-    - [Running Faceswap](#running-faceswap)
-    - [Create a desktop shortcut](#create-a-desktop-shortcut)
-    - [Updating faceswap](#updating-faceswap)
-    - [Dlib](#dlib)
-        - [Build Latest Dlib with GPU Support](#build-latest-dlib-with-gpu-support)
-        - [Easy install of Dlib without GPU Support](#easy-install-of-dlib-without-gpu-support)
+  - [Prerequisites](#prerequisites-1)
+    - [Microsoft Visual Studio 2015](#microsoft-visual-studio-2015)
+    - [Cuda](#cuda)
+    - [cuDNN](#cudnn)
+    - [CMake](#cmake)
+    - [Anaconda](#anaconda)
+    - [Git](#git)
+  - [Setup](#setup-1)
+    - [Anaconda](#anaconda-1)
+      - [Set up a virtual environment](#set-up-a-virtual-environment)
+      - [Entering your virtual environment](#entering-your-virtual-environment)
+    - [Faceswap](#faceswap)
+      - [Easy install](#easy-install)
+      - [Manual install](#manual-install)
+  - [Running Faceswap](#running-faceswap)
+  - [Create a desktop shortcut](#create-a-desktop-shortcut)
+  - [Updating faceswap](#updating-faceswap)
+  - [Dlib](#dlib)
+    - [Build Latest Dlib with GPU Support](#build-latest-dlib-with-gpu-support)
+    - [Easy install of Dlib without GPU Support](#easy-install-of-dlib-without-gpu-support)
 
 # Prerequisites
 Machine learning essentially involves a ton of trial and error. You're letting a program try millions of different settings to land on an algorithm that sort of does what you want it to do. This process is really really slow unless you have the hardware required to speed this up. 
@@ -53,11 +53,12 @@ The type of computations that the process does are well suited for graphics card
 
 ## Supported operating systems
 - **Windows 10**
-  Windows 7 and 8 might work. Your milage may vary
+  Windows 7 and 8 might work. Your milage may vary.
 - **Linux**
   Most Ubuntu/Debian or CentOS based Linux distributions will work.
 - **macOS**
   GPU support on macOS is limited due to lack of drivers/libraries from Nvidia.
+- All operating systems must be 64-bit for Tensorflow to run.
 
 Alternatively there is a docker image that is based on Debian.
 
@@ -68,9 +69,9 @@ The developers are also not responsible for any damage you might cause to your o
 
 # General Install Guide
 ## Installing dependencies
-- Python >= 3.2
+- Python >= 3.2-3.6 64-bit (cannot be 3.7.x as Tensorflow has not been updated to provide support)
   - apt/yum install python3 (Linux)
-  - [Installer](https://www.python.org/downloads/) (Windows)
+  - [Installer](https://www.python.org/downloads/release/python-368/) (Windows)
   - [brew](https://brew.sh/) install python3 (macOS)
 
 - [virtualenv](https://github.com/pypa/virtualenv) and [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io) may help when you are not using docker.

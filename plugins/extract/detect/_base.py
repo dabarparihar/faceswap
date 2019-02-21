@@ -15,21 +15,28 @@ import logging
 import os
 import traceback
 from io import StringIO
+from math import sqrt
 
 import cv2
 import dlib
-from math import sqrt
 
 from lib.gpu_stats import GPUStats
 from lib.utils import rotate_landmarks
+from plugins.extract._config import Config
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
+
+
+def get_config(plugin_name):
+    """ Return the config for the requested model """
+    return Config(plugin_name).config_dict
 
 
 class Detector():
     """ Detector object """
     def __init__(self, loglevel, rotation=None):
         logger.debug("Initializing %s: (rotation: %s)", self.__class__.__name__, rotation)
+        self.config = get_config(".".join(self.__module__.split(".")[-2:]))
         self.loglevel = loglevel
         self.cachepath = os.path.join(os.path.dirname(__file__), ".cache")
         self.rotation = self.get_rotation_angles(rotation)
@@ -100,13 +107,14 @@ class Detector():
             Do not override """
         try:
             self.detect_faces(*args, **kwargs)
-        except Exception:  # pylint: disable=broad-except
-            logger.error("Caught exception in child process: %s", os.getpid())
-            # Display traceback if in initialization stage 
+        except Exception as err:  # pylint: disable=broad-except
+            logger.error("Caught exception in child process: %s: %s", os.getpid(), str(err))
+            # Display traceback if in initialization stage
             if not self.init.is_set():
                 logger.exception("Traceback:")
             tb_buffer = StringIO()
             traceback.print_exc(file=tb_buffer)
+            logger.trace(tb_buffer.getvalue())
             exception = {"exception": (os.getpid(), tb_buffer)}
             self.queues["out"].put(exception)
             exit(1)
@@ -149,10 +157,11 @@ class Detector():
         else:
             scale = 1.0
         logger.trace("Detector scale: %s", scale)
-        
+
         return scale
 
-    def set_detect_image(self, input_image, scale):
+    @staticmethod
+    def set_detect_image(input_image, scale):
         """ Convert the image to RGB and scale """
         # pylint: disable=no-member
         image = input_image[:, :, ::-1].copy()
